@@ -8,6 +8,7 @@ export function Livro({ route }) {
   const { dadosUsuario } = useContext(DataContext);
   const [livro, setLivro] = useState(null);
   const idLivro = route.params?.idLivro;
+  const [isLoading, setIsLoading] = useState(true);
 
   async function getLivros() {
     try {
@@ -15,6 +16,7 @@ export function Livro({ route }) {
         headers: { Authorization: `Bearer ${dadosUsuario?.token}` },
       });
       setLivro(newLivro.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +30,9 @@ export function Livro({ route }) {
     <>
       <View style={styles.container}>
         <StatusBar />
-        {livro != null ? (
+        {isLoading ? (
+          <Text style={styles.loading}>Loading...</Text>
+        ) : (
           <>
             <Image
               source={{ uri: `data:image/png;base64,${livro.img}` }}
@@ -40,8 +44,6 @@ export function Livro({ route }) {
               Editora: {livro.editoraDTO.nomeEditora}
             </Text>
           </>
-        ) : (
-          <Text style={styles.info}>Carregando...</Text>
         )}
       </View>
       <Footer />
@@ -68,6 +70,10 @@ const styles = StyleSheet.create({
     marginVertical: 50,
   },
   loading: {
-    
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fcbc5c",
+    marginHorizontal: 10,
+    marginVertical: 200,
   }
 });
