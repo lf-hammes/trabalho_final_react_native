@@ -6,13 +6,11 @@ import {
   StatusBar,
   FlatList,
 } from "react-native";
-import { ScrollView } from "react-native";
 import { useContext, useState, useEffect } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import { Header } from "../../../global/Header";
 import { Footer } from "../../../global/Footer";
 
 export function Home() {
@@ -20,6 +18,7 @@ export function Home() {
   const { dadosUsuario } = useContext(DataContext);
   const [editoras, setEditoras] = useState([]);
   const [livros, setLivros] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const Editora = ({ item }) => (
     <TouchableOpacity
@@ -73,6 +72,7 @@ export function Home() {
     })
       .then((response) => {
         setLivros(aleatorio(response.data));
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -89,7 +89,7 @@ export function Home() {
     let j = 0;
     let newArray = array;
 
-    if(array.length >= 10) {
+    if (array.length >= 10) {
       while (i != 0) {
         j = Math.floor(Math.random() * i);
         i--;
@@ -98,49 +98,49 @@ export function Home() {
       let final = newArray.splice(0, 10);
       return final;
     } else {
-      return array
+      return array;
     }
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar />
-      <ScrollView>
+    <>
+      <View style={styles.container}>
         <StatusBar />
-        <View>
-          <FlatList
-            data={editoras}
-            renderItem={({ item }) => <Editora item={item} />}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
-        <Text style={styles.title}>Alguns livros</Text>
-        <View>
-          <FlatList
-            data={livros}
-            renderItem={({ item }) => <Livro item={item} />}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
-        <Text style={styles.title}>Destaques</Text>
-        <View>
-          <TouchableOpacity>
-            <View style={styles.itemDestaque}>
-              <Image
-                style={styles.destaque}
-                source={{
-                  uri: "https://about.proquest.com/globalassets/proquest/media/images/decrotive/oldbooks.jpg",
-                }}
+        {isLoading ? (
+          <View style={styles.loadingPage}>
+            <Text style={styles.loading}>Loading...</Text>
+          </View>
+        ) : (
+          <>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Editoras");
+              }}
+            >
+              <Text style={styles.title}>Editoras</Text>
+            </TouchableOpacity>
+            <View>
+              <FlatList
+                data={editoras}
+                renderItem={({ item }) => <Editora item={item} />}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
               />
-              <Text style={styles.titleItem}>Destaque 1</Text>
             </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-        <Footer/>
-    </View>
+            <Text style={styles.title}>Livros</Text>
+            <View>
+              <FlatList
+                data={livros}
+                renderItem={({ item }) => <Livro item={item} />}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          </>
+        )}
+      </View>
+      <Footer />
+    </>
   );
 }
 
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
+    paddingTop: 10,
   },
   itemEditora: {
     height: 150,
@@ -202,5 +203,17 @@ const styles = StyleSheet.create({
   titleItem: {
     fontSize: 15,
     color: "white",
+  },
+  loadingPage: {
+    width: "100%",
+    display: "flex",
+  },
+  loading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fcbc5c",
+    textAlign: "center",
+    marginHorizontal: 10,
+    marginVertical: 200,
   },
 });

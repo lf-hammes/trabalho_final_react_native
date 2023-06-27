@@ -13,6 +13,8 @@
     "@emotion/styled": "^11.11.0",
     "@expo/webpack-config": "^18.0.1",
     "@mui/material": "^5.13.5",
+    "@react-native-masked-view/masked-view": "0.2.8",
+    "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/stack": "^6.3.16",
     "axios": "^1.4.0",
     "expo": "~48.0.18",
@@ -21,11 +23,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.8",
-    "react-native-web": "~0.18.10",
-    "styled-components": "^6.0.0-rc.3",
     "react-native-gesture-handler": "~2.9.0",
-    "@react-native-masked-view/masked-view": "0.2.8",
-    "react-native-reanimated": "~2.14.4"
+    "react-native-reanimated": "~2.14.4",
+    "react-native-web": "~0.18.10",
+    "styled-components": "^6.0.0-rc.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

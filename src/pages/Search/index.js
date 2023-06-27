@@ -20,6 +20,7 @@ export function Search() {
   const { dadosUsuario } = useContext(DataContext);
   const [allLivros, setAllLivros] = useState([]);
   const [livros, setLivros] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   const Livro = ({ item }) => (
     <TouchableOpacity
@@ -50,6 +51,7 @@ export function Search() {
     })
       .then((response) => {
         setAllLivros(response.data);
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log(error);
@@ -76,6 +78,10 @@ export function Search() {
     <>
       <View style={styles.container}>
         <StatusBar />
+        {
+          isLoading ? (
+            <Text style={styles.loading}>Loading...</Text>
+          ) : (
         <View style={styles.searchContainer}>
           <TextInput style={styles.searchBar} onChangeText={filtrarLivros} />
           {livros != null ? (
@@ -85,6 +91,9 @@ export function Search() {
             />
           ) : null}
         </View>
+
+          ) 
+        }
       </View>
       <Footer />
     </>
@@ -144,5 +153,12 @@ const styles = StyleSheet.create({
   text: {
     color: '#fcbc5c',
     fontSize: 13
-  }
+  },
+  loading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fcbc5c",
+    marginHorizontal: 10,
+    marginVertical: 200,
+  },
 });

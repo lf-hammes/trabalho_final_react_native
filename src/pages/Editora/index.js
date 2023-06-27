@@ -21,6 +21,7 @@ export function Editora({ route }) {
   const { dadosUsuario } = useContext(DataContext);
   const [editora, setEditora] = useState(null);
   const idEditora = route.params?.idEditora;
+  const [isLoading, setIsLoading] = useState(true);
 
   const Livro = ({ item }) => (
     <TouchableOpacity
@@ -43,6 +44,7 @@ export function Editora({ route }) {
         headers: { Authorization: `Bearer ${dadosUsuario?.token}` },
       });
       setEditora(newEditora.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -55,9 +57,36 @@ export function Editora({ route }) {
   return (
     <>
       <View style={styles.container}>
-        <StatusBar />
-
-        {editora != null ? (
+        <ScrollView>
+          <StatusBar />
+          <View style={styles.livrosContainer}>
+            {isLoading ? (
+              <Text style={styles.loading}>Loading...</Text>
+            ) : (
+              editora.listaLivrosDTO.map((livro) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("Livro", {
+                        idLivro: livro.codigoLivro,
+                      });
+                    }}
+                  >
+                    <View style={styles.itemLivro}>
+                      <Image
+                        style={styles.livro}
+                        source={{
+                          uri: `data:image/png;base64,${livro.imagem}`,
+                        }}
+                      />
+                      <Text style={styles.nome}>{livro.nomeLivro}</Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })
+            )}
+          </View>
+          {/* {editora != null ? (
           <View>
             <FlatList
               data={editora.listaLivrosDTO}
@@ -65,8 +94,9 @@ export function Editora({ route }) {
             />
           </View>
         ) : (
-          <Text style={styles.info}>Carregando...</Text>
-        )}
+          <Text style={styles.loading}>Loading...</Text>
+        )} */}
+        </ScrollView>
       </View>
       <Footer />
     </>
@@ -77,20 +107,44 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
-    alignItems: "center",
   },
-  livro: {
-    marginVertical: 20,
-    width: 198,
-    height: 300,
+  livrosContainer: {
+    width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
   itemLivro: {
-    width: 198,
-    height: 320,
+    marginVertical: 20,
+    width: 150,
+    height: 268,
+    backgroundColor: "white",
+    borderRadius: 10,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  info: {
-    color: "#fcbc5c",
+  livro: {
+    width: 150,
+    height: 228,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10
+  },
+  loading: {
     fontSize: 20,
+    fontWeight: "bold",
+    color: "#fcbc5c",
     marginHorizontal: 10,
+    marginVertical: 200,
+  },
+  nome: {
+    fontSize: 15,
+    color: "black",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 10,
   },
 });

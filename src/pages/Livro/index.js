@@ -67,4 +67,7 @@ const styles = StyleSheet.create({
     height: 350,
     marginVertical: 50,
   },
+  loading: {
+    
+  }
 });
