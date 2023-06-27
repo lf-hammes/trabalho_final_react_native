@@ -7,7 +7,7 @@ import {
   Image,
   StatusBar,
 } from "react-native";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
 import Ionicons from "@expo/vector-icons/Ionicons";

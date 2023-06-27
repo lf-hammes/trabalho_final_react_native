@@ -82,7 +82,6 @@ export function Editoras() {
           )}
         </View>
       </ScrollView>
-      <Footer />
     </View>
   );
 }

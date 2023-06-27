@@ -46,7 +46,6 @@ export function Livro({ route }) {
           </>
         )}
       </View>
-      <Footer />
     </>
   );
 }

@@ -98,7 +98,6 @@ export function Editora({ route }) {
         )} */}
         </ScrollView>
       </View>
-      <Footer />
     </>
   );
 }

@@ -19,6 +19,7 @@ export function Home() {
   const [editoras, setEditoras] = useState([]);
   const [livros, setLivros] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState('Loading...')
 
   const Editora = ({ item }) => (
     <TouchableOpacity
@@ -79,6 +80,16 @@ export function Home() {
       });
   }
 
+  // const intervalo = setInterval(() => {
+  //   let newMessage = message + ".";
+  //   if (newMessage == "Loading....") {
+  //     setMessage("Loading");
+  //   } else {
+  //     setMessage(newMessage);
+  //   }
+  //   console.log('loading')
+  // }, 800)   
+
   useEffect(() => {
     getEditoras();
     getLivros();
@@ -108,7 +119,7 @@ export function Home() {
         <StatusBar />
         {isLoading ? (
           <View style={styles.loadingPage}>
-            <Text style={styles.loading}>Loading...</Text>
+            <Text style={styles.loading}>{message}</Text>
           </View>
         ) : (
           <>
@@ -139,7 +150,6 @@ export function Home() {
           </>
         )}
       </View>
-      <Footer />
     </>
   );
 }

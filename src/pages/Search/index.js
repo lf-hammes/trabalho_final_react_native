@@ -95,7 +95,6 @@ export function Search() {
           ) 
         }
       </View>
-      <Footer />
     </>
   );
 }
