@@ -80,15 +80,7 @@ export function Home() {
       });
   }
 
-  // const intervalo = setInterval(() => {
-  //   let newMessage = message + ".";
-  //   if (newMessage == "Loading....") {
-  //     setMessage("Loading");
-  //   } else {
-  //     setMessage(newMessage);
-  //   }
-  //   console.log('loading')
-  // }, 800)   
+     
 
   useEffect(() => {
     getEditoras();
@@ -138,7 +130,11 @@ export function Home() {
                 showsHorizontalScrollIndicator={false}
               />
             </View>
+            <TouchableOpacity onPress={()=>{
+              navigation.navigate("Livros")
+            }}>
             <Text style={styles.title}>Livros</Text>
+            </TouchableOpacity>
             <View>
               <FlatList
                 data={livros}

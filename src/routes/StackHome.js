@@ -4,6 +4,7 @@ import { Editoras } from "../pages/Editoras";
 import { Editora } from "../pages/Editora";
 import { Livro } from "../pages/Livro";
 import { Home } from "../pages/Home";
+import { Livros } from "../pages/Livros";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ const StackHome = () => {
           <Stack.Screen name="Editoras" component={Editoras}/>
           <Stack.Screen name="Editora" component={Editora}/>
           <Stack.Screen name="Livro" component={Livro}/>
+          <Stack.Screen name="Livros" component={Livros}/>
         </Stack.Navigator>
   );
 };
