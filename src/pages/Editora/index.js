@@ -2,19 +2,15 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   Image,
   StatusBar,
-  FlatList,
 } from "react-native";
 import { useState, useContext, useEffect } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import { Header } from "../../../global/Header";
-import { Footer } from "../../../global/Footer";
 
 export function Editora({ route }) {
   const navigation = useNavigation();
@@ -22,21 +18,6 @@ export function Editora({ route }) {
   const [editora, setEditora] = useState(null);
   const idEditora = route.params?.idEditora;
   const [isLoading, setIsLoading] = useState(true);
-
-  const Livro = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate("Livro", { idLivro: item.codigoLivro });
-      }}
-    >
-      <View style={styles.itemLivro}>
-        <Image
-          style={styles.livro}
-          source={{ uri: `data:image/png;base64,${item.imagem}` }}
-        />
-      </View>
-    </TouchableOpacity>
-  );
 
   async function getEditora() {
     try {
@@ -72,7 +53,7 @@ export function Editora({ route }) {
                       });
                     }}
                   >
-                    <View style={styles.itemLivro}>
+                    <View style={styles.itemLivro} key={livro.codigoLivro}>
                       <Image
                         style={styles.livro}
                         source={{
@@ -86,16 +67,6 @@ export function Editora({ route }) {
               })
             )}
           </View>
-          {/* {editora != null ? (
-          <View>
-            <FlatList
-              data={editora.listaLivrosDTO}
-              renderItem={({ item }) => <Livro item={item} />}
-            />
-          </View>
-        ) : (
-          <Text style={styles.loading}>Loading...</Text>
-        )} */}
         </ScrollView>
       </View>
     </>
@@ -118,8 +89,8 @@ const styles = StyleSheet.create({
   itemLivro: {
     marginVertical: 20,
     width: 150,
-    height: 268,
-    backgroundColor: "white",
+    height: 288,
+    backgroundColor: "rgba(43, 51, 65, 1)",
     borderRadius: 10,
     display: "flex",
     flexDirection: "column",
@@ -141,9 +112,9 @@ const styles = StyleSheet.create({
   },
   nome: {
     fontSize: 15,
-    color: "black",
+    color: "#fcbc5c",
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 10,
+    marginBottom: 20,
   },
 });

@@ -1,8 +1,23 @@
-import { StyleSheet, Text, View, Image, StatusBar } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
 import { useState, useContext, useEffect } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
-import { Footer } from "../../../global/Footer";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import {
+  increment,
+  check,
+  incrementCart,
+  getValueFor,
+  deleteValueFor,
+  decrementCart,
+} from "../../services/DataServices";
 
 export function Livro({ route }) {
   const { dadosUsuario } = useContext(DataContext);
@@ -26,6 +41,14 @@ export function Livro({ route }) {
     getLivros();
   }, []);
 
+  async function atualizar(key) {
+      await increment(key, idLivro);
+  }
+
+  async function carrinho() {
+    await incrementCart('cart', idLivro)
+  }
+
   return (
     <>
       <View style={styles.container}>
@@ -43,6 +66,27 @@ export function Livro({ route }) {
             <Text style={styles.info}>
               Editora: {livro.editoraDTO.nomeEditora}
             </Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button}
+              onPress={carrinho}>
+                <Ionicons
+                  name="cart-outline"
+                  size={30}
+                  style={{ color: "black" }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => atualizar('fav')}
+              >
+                <Ionicons name='heart-outline' size={30} style={{ color: "black" }} />
+              </TouchableOpacity>
+              {/* <TouchableOpacity style={styles.button} onPress={() => {
+                getValueFor('cart')
+                deleteValueFor('cart')
+                decrementCart('cart', idLivro)
+              }}></TouchableOpacity> */}
+            </View>
           </>
         )}
       </View>
@@ -55,18 +99,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
     alignItems: "center",
-    textAlign: "center",
     height: "100%",
   },
   info: {
     color: "#fcbc5c",
     fontSize: 20,
     marginHorizontal: 10,
+    textAlign: "center",
   },
   image: {
     width: 231,
     height: 350,
-    marginVertical: 50,
+    marginVertical: 10,
   },
   loading: {
     fontSize: 20,
@@ -74,5 +118,23 @@ const styles = StyleSheet.create({
     color: "#fcbc5c",
     marginHorizontal: 10,
     marginVertical: 200,
-  }
+  },
+  buttonContainer: {
+    width: "50%",
+    height: 50,
+    marginTop: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  button: {
+    width: "40%",
+    height: "100%",
+    backgroundColor: "#a47b3d",
+    borderRadius: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

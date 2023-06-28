@@ -4,7 +4,6 @@ import {
   View,
   Image,
   StatusBar,
-  FlatList,
 } from "react-native";
 import { ScrollView } from "react-native";
 import { useContext, useState, useEffect } from "react";
@@ -12,8 +11,6 @@ import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import { Header } from "../../../global/Header";
-import { Footer } from "../../../global/Footer";
 
 export function Editoras() {
   const navigation = useNavigation();
@@ -69,7 +66,7 @@ export function Editoras() {
                     });
                   }}
                 >
-                  <View style={styles.itemEditora}>
+                  <View style={styles.itemEditora} key={editora.codigoEditora}>
                     <Image
                       style={styles.editora}
                       source={{ uri: `data:image/png;base64,${editora.img}` }}

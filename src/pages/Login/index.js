@@ -11,6 +11,7 @@ import { useState, useContext, useEffect } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { deleteItemAsync } from "expo-secure-store";
 
 export function Login({ navigation }) {
   const [usuario, setUsuario] = useState();
@@ -29,7 +30,7 @@ export function Login({ navigation }) {
         var jwtToken = resultado.data;
         armazenarDadosUsuario(jwtToken["accessToken"]);
 
-        navigation.navigate("Home");
+        navigation.navigate("HomeStack");
       } else {
         console.log("Erro ao realizar o login!");
       }

@@ -5,15 +5,13 @@ import {
   Image,
   StatusBar,
   FlatList,
+  TouchableOpacity
 } from "react-native";
-import { ScrollView } from "react-native";
 import { useContext, useState, useEffect } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import { Header } from "../../../global/Header";
-import { Footer } from "../../../global/Footer";
 
 export function Search() {
   const navigation = useNavigation();

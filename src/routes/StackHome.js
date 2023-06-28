@@ -12,16 +12,13 @@ const StackHome = () => {
   return (
         <Stack.Navigator
           screenOptions={{
-            headerStyle: {
-              backgroundColor: "rgba(43, 51, 65, 1)",
-            },
-            headerTintColor: "#fcbc5c",
+            headerShown: false
           }}
         >
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Editoras" component={Editoras}/>
           <Stack.Screen name="Editora" component={Editora}/>
-          <Stack.Screen name="Livro" component={Livro}/>
+          <Stack.Screen name="Livro" component={Livro} />
           <Stack.Screen name="Livros" component={Livros}/>
         </Stack.Navigator>
   );
