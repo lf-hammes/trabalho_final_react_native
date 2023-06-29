@@ -1,31 +1,32 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
+  FlatList,
   Image,
   StatusBar,
-  FlatList,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
-import React, { useContext, useState } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
-import { useNavigation } from "@react-navigation/native";
 import {
-  removeItenCart,
   decrementCart,
-  incrementCart,
-  getValueFor,
   deleteValueFor,
+  getValueFor,
+  incrementCart,
+  removeItenCart,
 } from "../../services/DataServices";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { useFocusEffect } from "@react-navigation/native";
+import { FavCartContext } from "../../context/FavCartContext";
 
 export function Carrinho() {
   const navigation = useNavigation();
   const { dadosUsuario } = useContext(DataContext);
   const [carrinho, setCarrinho] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { getCarrinho } = useContext(FavCartContext);
 
   const Livro = ({ item }) => (
     <View style={styles.itemContainer}>
@@ -74,27 +75,32 @@ export function Carrinho() {
 
   async function removerItem(id) {
     await removeItenCart("cart", id);
+    getCart();
     getCarrinho();
   }
   async function incrementarItem(id) {
     await incrementCart("cart", id);
+    getCart();
     getCarrinho();
   }
   async function decrementarItem(id) {
     await decrementCart("cart", id);
+    getCart();
     getCarrinho();
   }
   async function finalizar() {
     await deleteValueFor('cart');
+    getCarrinho();
     navigation.navigate('Home');
   }
 
   async function deletar() {
     await deleteValueFor('cart');
+    getCart();
     getCarrinho();
   }
 
-  async function getCarrinho() {
+  async function getCart() {
     let carrinhoString = await getValueFor("cart");
     let cart = carrinhoString != null ? JSON.parse(carrinhoString) : [];
     let arrayLivros = [];
@@ -116,7 +122,7 @@ export function Carrinho() {
 
   useFocusEffect(
     React.useCallback(() => {
-      getCarrinho();
+      getCart();
     }, [])
   );
 

@@ -1,25 +1,26 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
+  FlatList,
   Image,
   StatusBar,
-  FlatList,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
-import React, { useContext, useState } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
-import { useNavigation } from "@react-navigation/native";
 import { decrement, getValueFor } from "../../services/DataServices";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { useFocusEffect } from '@react-navigation/native';
+import { FavCartContext } from "../../context/FavCartContext";
 
 export function Favoritos() {
   const navigation = useNavigation();
   const { dadosUsuario } = useContext(DataContext);
   const [favoritos, setFavoritos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { getFavoritos } = useContext(FavCartContext);
 
   const Livro = ({ item }) => (
     <View style={styles.itemContainer} key={item.codigoLivro}>
@@ -51,7 +52,7 @@ export function Favoritos() {
     </View>
   );
 
-  async function getFavoritos() {
+  async function getFavs() {
     let idsString = await getValueFor("fav");
     let ids = idsString != null ? JSON.parse(idsString) : [];
     let arrayLivros = [];
@@ -73,12 +74,13 @@ export function Favoritos() {
 
   useFocusEffect(
     React.useCallback(()=> {
-        getFavoritos();
+        getFavs();
     }, [])
   );
 
   async function removerFavorito(id) {
     await decrement("fav", id);
+    getFavs();
     getFavoritos();
   };
 

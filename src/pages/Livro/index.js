@@ -1,25 +1,27 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useContext, useEffect, useState } from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
   Image,
   StatusBar,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
-import { useState, useContext, useEffect } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   increment,
   incrementCart,
 } from "../../services/DataServices";
+import { FavCartContext } from "../../context/FavCartContext";
 
 export function Livro({ route }) {
   const { dadosUsuario } = useContext(DataContext);
   const [livro, setLivro] = useState(null);
   const idLivro = route.params?.idLivro;
   const [isLoading, setIsLoading] = useState(true);
+  const { getFavoritos, getCarrinho } = useContext(FavCartContext);
 
   async function getLivros() {
     try {
@@ -39,10 +41,12 @@ export function Livro({ route }) {
 
   async function atualizar(key) {
       await increment(key, idLivro);
+      getFavoritos();
   }
 
   async function carrinho() {
-    await incrementCart('cart', idLivro)
+    await incrementCart('cart', idLivro);
+    getCarrinho();
   }
 
   return (
