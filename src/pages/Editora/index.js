@@ -52,8 +52,9 @@ export function Editora({ route }) {
                         idLivro: livro.codigoLivro,
                       });
                     }}
+                    key={livro.codigoLivro}
                   >
-                    <View style={styles.itemLivro} key={livro.codigoLivro}>
+                    <View style={styles.itemLivro} >
                       <Image
                         style={styles.livro}
                         source={{
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
+    padding: 20
   },
   livrosContainer: {
     width: "100%",

@@ -11,7 +11,6 @@ import { useState, useContext, useEffect } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { deleteItemAsync } from "expo-secure-store";
 
 export function Login({ navigation }) {
   const [usuario, setUsuario] = useState();

@@ -81,7 +81,7 @@ export function Search() {
             <Text style={styles.loading}>Loading...</Text>
           ) : (
         <View style={styles.searchContainer}>
-          <TextInput style={styles.searchBar} onChangeText={filtrarLivros} />
+          <TextInput style={styles.searchBar} onChangeText={filtrarLivros} placeholder="Digite um livro, um autor ou uma editora"/>
           {livros != null ? (
             <FlatList
               data={livros}
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
     alignItems: "center",
+    paddingTop: 20
   },
   searchContainer: {
     marginTop: 10,

@@ -17,7 +17,6 @@ export function Editoras() {
   const { dadosUsuario } = useContext(DataContext);
   const [editoras, setEditoras] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState("Loading...");
  
 
   async function getEditoras() {
@@ -35,16 +34,6 @@ export function Editoras() {
       });
   }
 
-  // setInterval(() => {
-  //   let newMessage = message + ".";
-  //   if (newMessage == "Loading....") {
-  //     setMessage("Loading.");
-  //   } else {
-  //     setMessage(newMessage);
-  //   }
-  //   console.log('loading')
-  // }, 500)    
-
   useEffect(() => {
     getEditoras();
   }, []);
@@ -55,7 +44,7 @@ export function Editoras() {
       <ScrollView>
         <View style={styles.editoraContainer}>
           {isLoading ? (
-            <Text style={styles.loading}>{message}</Text>
+            <Text style={styles.loading}>Loading...</Text>
           ) : (
             editoras.map((editora) => {
               return (
@@ -65,8 +54,9 @@ export function Editoras() {
                       idEditora: editora.codigoEditora,
                     });
                   }}
+                  key={editora.codigoEditora}
                 >
-                  <View style={styles.itemEditora} key={editora.codigoEditora}>
+                  <View style={styles.itemEditora} >
                     <Image
                       style={styles.editora}
                       source={{ uri: `data:image/png;base64,${editora.img}` }}
@@ -87,6 +77,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
+    paddingTop: 20
   },
   editoraContainer: {
     width: "100%",

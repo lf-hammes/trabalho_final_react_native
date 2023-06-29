@@ -7,7 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
 import { useNavigation } from "@react-navigation/native";
@@ -22,7 +22,7 @@ export function Favoritos() {
   const [isLoading, setIsLoading] = useState(true);
 
   const Livro = ({ item }) => (
-    <View style={styles.itemContainer}>
+    <View style={styles.itemContainer} key={item.codigoLivro}>
       <View style={styles.itemLivro}>
         <TouchableOpacity
           onPress={() => {
@@ -90,12 +90,12 @@ export function Favoritos() {
           <Text style={styles.loading}>Loading...</Text>
         ) : (
           <View style={styles.favoritosContainer}>
-            {favoritos != null ? (
+            {favoritos.length !== 0 ? (
               <FlatList
                 data={favoritos}
                 renderItem={({ item }) => <Livro item={item} />}
               />
-            ) : null}
+            ) : (<Text style={styles.loading}>Sem favoritos</Text>)}
           </View>
         )}
       </View>
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
     alignItems: "center",
+    paddingTop: 20
   },
   favoritosContainer: {
     marginTop: 10,

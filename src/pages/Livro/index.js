@@ -12,11 +12,7 @@ import { DataContext } from "../../context/DataContext";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   increment,
-  check,
   incrementCart,
-  getValueFor,
-  deleteValueFor,
-  decrementCart,
 } from "../../services/DataServices";
 
 export function Livro({ route }) {
@@ -81,11 +77,6 @@ export function Livro({ route }) {
               >
                 <Ionicons name='heart-outline' size={30} style={{ color: "black" }} />
               </TouchableOpacity>
-              {/* <TouchableOpacity style={styles.button} onPress={() => {
-                getValueFor('cart')
-                deleteValueFor('cart')
-                decrementCart('cart', idLivro)
-              }}></TouchableOpacity> */}
             </View>
           </>
         )}
@@ -100,6 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(57,68,87,1)",
     alignItems: "center",
     height: "100%",
+    paddingTop: 20
   },
   info: {
     color: "#fcbc5c",

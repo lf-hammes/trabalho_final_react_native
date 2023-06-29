@@ -18,7 +18,6 @@ export function Home() {
   const [editoras, setEditoras] = useState([]);
   const [livros, setLivros] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState('Loading...')
 
   const Editora = ({ item }) => (
     <TouchableOpacity
@@ -79,8 +78,6 @@ export function Home() {
       });
   }
 
-     
-
   useEffect(() => {
     getEditoras();
     getLivros();
@@ -110,7 +107,7 @@ export function Home() {
         <StatusBar />
         {isLoading ? (
           <View style={styles.loadingPage}>
-            <Text style={styles.loading}>{message}</Text>
+            <Text style={styles.loading}>Loading...</Text>
           </View>
         ) : (
           <>
@@ -153,7 +150,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
-    paddingTop: 10,
+    paddingTop: 20,
   },
   itemEditora: {
     height: 150,

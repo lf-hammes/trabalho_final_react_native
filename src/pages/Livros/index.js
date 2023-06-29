@@ -54,8 +54,9 @@ import {
                           idLivro: livro.codigoLivro,
                         });
                       }}
+                      key={livro.codigoLivro}
                     >
-                      <View style={styles.itemLivro} key={livro.codigoLivro}>
+                      <View style={styles.itemLivro} >
                         <Image
                           style={styles.livro}
                           source={{
@@ -79,6 +80,7 @@ import {
     container: {
       flex: 1,
       backgroundColor: "rgba(57,68,87,1)",
+      paddingTop: 20
     },
     livrosContainer: {
       width: "100%",

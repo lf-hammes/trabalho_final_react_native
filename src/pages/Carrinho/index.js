@@ -7,7 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AxiosInstance from "../../api/AxiosInstance";
 import { DataContext } from "../../context/DataContext";
 import { useNavigation } from "@react-navigation/native";
@@ -143,7 +143,7 @@ export function Carrinho() {
                   </TouchableOpacity>
                 </View>
               </>
-            ) : null}
+            ) : (<Text style={styles.loading}>Carrinho vazio</Text>)}
           </View>
         )}
       </View>
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "rgba(57,68,87,1)",
     alignItems: "center",
+    paddingTop: 20
   },
   favoritosContainer: {
     marginTop: 10,
