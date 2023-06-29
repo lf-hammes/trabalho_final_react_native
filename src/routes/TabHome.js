@@ -82,7 +82,14 @@ const TabHome = () => {
               <Ionicons name="heart" size={30} style={{ color: "#fcbc5c" }} />
             );
           },
-          tabBarBadge: favoritos.length,
+          tabBarBadge: favoritos.length !== 0? (favoritos.length) : (null),
+          tabBarBadgeStyle: {
+            backgroundColor: '#ac813f',
+            color: 'black',
+            borderColor: 'rgba(43, 51, 65, 1)',
+            borderWidth: 1,
+            fontWeight: 'bold'
+          }
         }}
       />
       <Tab.Screen
@@ -94,7 +101,14 @@ const TabHome = () => {
               <Ionicons name="cart" size={30} style={{ color: "#fcbc5c" }} />
             );
           },
-          tabBarBadge: carrinho,
+          tabBarBadge: carrinho !== 0 ? (carrinho) : (null),
+          tabBarBadgeStyle: {
+            backgroundColor: '#ac813f',
+            color: 'black',
+            borderColor: 'rgba(43, 51, 65, 1)',
+            borderWidth: 1,
+            fontWeight: 'bold'
+          }
         }}
       />
     </Tab.Navigator>

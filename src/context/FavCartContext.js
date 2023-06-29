@@ -15,19 +15,17 @@ export const FavCartProvider = ({ children }) => {
     } else {
       setFavoritos(0);
     }
-    console.log('vamo ver')
   }
 
   async function getCarrinho() {
     let cart = await getValueFor('cart');
-    cart = JSON.parse(cart)
-    console.log(cart)
+    cart = JSON.parse(cart);
     if (cart !== null && cart !== undefined) {
         let total = 0
         cart.forEach(item => {
           total += item.qtd;
         })
-        setCarrinho(total)
+        setCarrinho(total);
     } else {
         setCarrinho(0);
     }
